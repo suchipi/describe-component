@@ -237,13 +237,15 @@ describeComponent(MyComponent, ({
 });
 ```
 
-Mocha: TODO (will be available via `require("describe-component/mocha")` someday)
+Mocha:
+Same as Jest but use `require("describe-component/mocha")` instead of `require("describe-component/jest")`.
+
+Jasmine:
+Same as Jest but use `require("describe-component/jasmine")` instead of `require("describe-component/jest")`.
 
 AVA: TODO (will be available via `require("describe-component/ava")` someday)
 
 Tape: TODO (will be available via `require("describe-component/tape")` someday)
-
-Jasmine: TODO (will be available via `require("describe-component/jasmine")` someday)
 
 Generic:
 ```js
