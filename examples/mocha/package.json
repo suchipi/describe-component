@@ -1,0 +1,21 @@
+{
+  "name": "describe-component-example-mocha",
+  "version": "1.0.0",
+  "main": "index.test.js",
+  "license": "MIT",
+  "dependencies": {
+    "babel-preset-react": "^6.24.1",
+    "babel-register": "^6.24.1",
+    "chai": "^4.0.2",
+    "enzyme": "^2.9.1",
+    "jsdom": "^11.0.0",
+    "jsdom-global": "^3.0.2",
+    "mocha": "^3.4.2",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "react-test-renderer": "^15.6.1"
+  },
+  "scripts": {
+    "test": "mocha --require jsdom-global/register --require babel-register"
+  }
+}
