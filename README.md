@@ -245,7 +245,7 @@ props: () => Object
 
 ## Usage (Test Runner Configuration)
 
-Jest:
+### Jest
 ```js
 import describeComponent from "describe-component/jest";
 import MyComponent from "./MyComponent";
@@ -268,17 +268,59 @@ describeComponent(MyComponent, ({
 });
 ```
 
-Mocha:
-Same as Jest but use `require("describe-component/mocha")` instead of `require("describe-component/jest")`.
+### Mocha
+```js
+import describeComponent from "describe-component/mocha";
+import MyComponent from "./MyComponent";
 
-Jasmine:
-Same as Jest but use `require("describe-component/jasmine")` instead of `require("describe-component/jest")`.
+describeComponent(MyComponent, ({
+  // It's common to only use one of mountWrapper, shallowWrapper, or
+  // renderWrapper, and rename the one you use to match the name of
+  // your component. In this example, we'll use mountWrapper
+  mountWrapper: myComponent,
+  // shallowWrapper,
+  // renderWrapper,
 
-AVA: TODO (will be available via `require("describe-component/ava")` someday)
+  // Helpers that set the props for the component to be rendered with
+  setProps, // Call with an object to merge into the props
+  clearProps, // Call to clear the props
 
-Tape: TODO (will be available via `require("describe-component/tape")` someday)
+  props, // Returns the props that the component will be/was rendered with.
+}) => {
+  // Write your tests here
+});
+```
 
-Generic:
+### Jasmine
+```js
+import describeComponent from "describe-component/jasmine";
+import MyComponent from "./MyComponent";
+
+describeComponent(MyComponent, ({
+  // It's common to only use one of mountWrapper, shallowWrapper, or
+  // renderWrapper, and rename the one you use to match the name of
+  // your component. In this example, we'll use mountWrapper
+  mountWrapper: myComponent,
+  // shallowWrapper,
+  // renderWrapper,
+
+  // Helpers that set the props for the component to be rendered with
+  setProps, // Call with an object to merge into the props
+  clearProps, // Call to clear the props
+
+  props, // Returns the props that the component will be/was rendered with.
+}) => {
+  // Write your tests here
+});
+```
+
+### AVA
+TODO (will be available via `require("describe-component/ava")` someday)
+
+### Tape
+TODO (will be available via `require("describe-component/tape")` someday)
+
+### Generic/Other
 ```js
 // If your test runner isn't listed or supported yet, you can configure
 // describe-component manually to work with your test runner.
