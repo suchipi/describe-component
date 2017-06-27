@@ -2,14 +2,16 @@
 
 exports[`ColorableDiv clearProps when the component has already been rendered when using mountWrapper throws an error 1`] = `"You are trying to change props for a ColorableDiv that has already been mounted. \`clearProps\` is intended to be used before mounting the component (for example, in \`beforeEach\` calls). If you want an already-mounted component to receive new props, call \`setProps\` on the wrapper object returned from \`mountWrapper\`."`;
 
-exports[`ColorableDiv clearProps when the component has already been rendered when using renderWrapper throws an error 1`] = `"You are trying to change props for a ColorableDiv that has already been rendered. \`clearProps\` is intended to be used before rendering the component (for example, in \`beforeEach\` calls)."`;
-
 exports[`ColorableDiv clearProps when the component has already been rendered when using shallowWrapper throws an error 1`] = `"You are trying to change props for a ColorableDiv that has already been shallow rendered. \`clearProps\` is intended to be used before shallow rendering the component (for example, in \`beforeEach\` calls). If you want an already-shallow-rendered component to receive new props, call \`setProps\` on the wrapper object returned from \`shallowWrapper\`."`;
+
+exports[`ColorableDiv renderWrapper (static markup rendering) can be re-rendered multiple times and you can call setProps/clearProps in between 1`] = `"<div data-component-name=\\"ColorableDiv\\"></div>"`;
+
+exports[`ColorableDiv renderWrapper (static markup rendering) can be re-rendered multiple times and you can call setProps/clearProps in between 2`] = `"<div data-component-name=\\"ColorableDiv\\" style=\\"color:red;\\"></div>"`;
+
+exports[`ColorableDiv renderWrapper (static markup rendering) can be re-rendered multiple times and you can call setProps/clearProps in between 3`] = `"<div data-component-name=\\"ColorableDiv\\"></div>"`;
 
 exports[`ColorableDiv renderWrapper (static markup rendering) returns a cheerio instance of the html obtained from rendering the described component 1`] = `"<div data-component-name=\\"ColorableDiv\\"></div>"`;
 
 exports[`ColorableDiv setProps when using mountWrapper throws an error if called after the component has been mounted 1`] = `"You are trying to change props for a ColorableDiv that has already been mounted. \`setProps\` is intended to be used before mounting the component (for example, in \`beforeEach\` calls). If you want an already-mounted component to receive new props, call \`setProps\` on the wrapper object returned from \`mountWrapper\`."`;
-
-exports[`ColorableDiv setProps when using renderWrapper throws an error if called after the component has been rendered 1`] = `"You are trying to change props for a ColorableDiv that has already been rendered. \`setProps\` is intended to be used before rendering the component (for example, in \`beforeEach\` calls)."`;
 
 exports[`ColorableDiv setProps when using shallowWrapper throws an error if called after the component has been shallow-rendered 1`] = `"You are trying to change props for a ColorableDiv that has already been shallow rendered. \`setProps\` is intended to be used before shallow rendering the component (for example, in \`beforeEach\` calls). If you want an already-shallow-rendered component to receive new props, call \`setProps\` on the wrapper object returned from \`shallowWrapper\`."`;

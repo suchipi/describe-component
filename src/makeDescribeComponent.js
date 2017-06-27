@@ -45,13 +45,11 @@ module.exports = function makeDescribeComponent({
       let props;
       let mountedWrapper;
       let shallowRenderedWrapper;
-      let renderedWrapper;
 
       beforeEach(() => {
         props = {};
         mountedWrapper = undefined;
         shallowRenderedWrapper = undefined;
-        renderedWrapper = undefined;
       });
 
       afterEach(() => {
@@ -82,56 +80,33 @@ module.exports = function makeDescribeComponent({
       }
 
       function renderWrapper() {
-        if (!renderedWrapper) {
-          renderedWrapper = render(
-            React.createElement(Component, props)
-          );
-        }
-        return renderedWrapper;
+        return render(
+          React.createElement(Component, props)
+        );
       }
 
       function getProps() {
         return props;
       }
 
-      function throwIfAlreadyUsed(functionName) {
-        if (mountedWrapper || shallowRenderedWrapper || renderedWrapper) {
+      function throwIfAlreadyMountedOrShallowRendered(functionName) {
+        if (mountedWrapper || shallowRenderedWrapper) {
           let message = (verbed, verbing, wrapperFn) =>
             "You are trying to change props for " +
             `${startsWithVowel(name) ? "an" : "a"} ${name} that has already ` +
             `been ${verbed}. \`${functionName}\` is intended to be used ` +
             `before ${verbing} the component (for example, in `+
             `\`${beforeEachName}\` calls).` +
-            (wrapperFn.match(/(?:mount|shallow)Wrapper/) ? (
-              ` If you want an already-${verbed.replace(" ", "-")} component ` +
-              `to receive new props, call \`setProps\` on the wrapper object ` +
-              `returned from ${wrapperFn}.`
-            ) : "");
+            ` If you want an already-${verbed.replace(" ", "-")} component ` +
+            `to receive new props, call \`setProps\` on the wrapper object ` +
+            `returned from ${wrapperFn}.`;
 
 
-          if (mountedWrapper && shallowRenderedWrapper && renderedWrapper) {
-            throw new Error(message(
-              "mounted or rendered or shallow rendered",
-              "mounting or rendering or shallow rendering",
-              "`mountWrapper` or `shallowWrapper`"
-            ));
-          } else if (mountedWrapper && shallowRenderedWrapper) {
+          if (mountedWrapper && shallowRenderedWrapper) {
             throw new Error(message(
               "mounted or shallow rendered",
               "mounting or shallow rendering",
               "`mountWrapper` or `shallowWrapper`"
-            ));
-          } else if (mountedWrapper && renderedWrapper) {
-            throw new Error(message(
-              "mounted or rendered",
-              "mounting or rendering",
-              "`mountWrapper` or `renderWrapper`"
-            ));
-          } else if (shallowRenderedWrapper && renderedWrapper) {
-            throw new Error(message(
-              "rendered or shallow rendered",
-              "rendering or shallow rendering",
-              "`renderWrapper` or `shallowWrapper`"
             ));
           } else if (mountedWrapper) {
             throw new Error(message("mounted", "mounting", "`mountWrapper`"));
@@ -141,23 +116,17 @@ module.exports = function makeDescribeComponent({
               "shallow rendering",
               "`shallowWrapper`"
             ));
-          } else if (renderedWrapper) {
-            throw new Error(message(
-              "rendered",
-              "rendering",
-              "`renderWrapper`"
-            ));
           }
         }
       }
 
       function setProps(newProps) {
-        throwIfAlreadyUsed("setProps");
+        throwIfAlreadyMountedOrShallowRendered("setProps");
         Object.assign(props, newProps);
       }
 
       function clearProps() {
-        throwIfAlreadyUsed("clearProps");
+        throwIfAlreadyMountedOrShallowRendered("clearProps");
         props = {};
       }
 

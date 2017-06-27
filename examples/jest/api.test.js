@@ -56,8 +56,16 @@ describeComponent(ColorableDiv, ({
       expect(renderWrapper().html()).toMatchSnapshot();
     });
 
-    it("only renders the described component once", () => {
-      expect(renderWrapper()).toBe(renderWrapper());
+    it("is NOT memoized; it returns a new instance every time", () => {
+      expect(renderWrapper()).not.toBe(renderWrapper());
+    });
+
+    it("can be re-rendered multiple times and you can call setProps/clearProps in between", () => {
+      expect(renderWrapper().html()).toMatchSnapshot();
+      setProps({ color: "red" });
+      expect(renderWrapper().html()).toMatchSnapshot();
+      clearProps();
+      expect(renderWrapper().html()).toMatchSnapshot();
     });
   });
 
@@ -129,11 +137,11 @@ describeComponent(ColorableDiv, ({
         expect(wrappingDiv.find("span#some-child")).toHaveLength(1);
       });
 
-      it("throws an error if called after the component has been rendered", () => {
+      it("does NOT throw an error if the component has already been rendered", () => {
         expect(() => {
           renderWrapper();
           setProps({ color: "red" });
-        }).toThrowErrorMatchingSnapshot();
+        }).not.toThrowError();
       });
     });
   });
@@ -177,11 +185,11 @@ describeComponent(ColorableDiv, ({
       });
 
       describe("when using renderWrapper", () => {
-        it("throws an error", () => {
+        it("does not throw an error", () => {
           expect(() => {
             renderWrapper();
             clearProps();
-          }).toThrowErrorMatchingSnapshot();
+          }).not.toThrowError();
         });
       });
     });

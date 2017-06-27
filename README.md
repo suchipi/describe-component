@@ -105,9 +105,8 @@ shallowWrapper: () => ShallowWrapper
 
 A wrapper around enzyme's `render` that will render your component to static
 markup (using the props set up with `setProps` and `clearProps`), and return the
-CheerioWrapper instance created by `render`. It is memoized, so it will only
-call `render` once per test, and subsequent calls will return the first
-CheerioWrapper instance.
+CheerioWrapper instance created by `render`. Unlike `mountWrapper` and
+`shallowWrapper`, it is NOT memoized.
 
 Type definition:
 ```js
@@ -151,6 +150,22 @@ describe("when a color prop is passed", () => {
 });
 ```
 
+When using `mountWrapper` or `shallowWrapper`, you should only use `setProps`
+before the first time you call `mountWrapper`/`shallowWrapper`. If you try to
+use it after the component has already rendered, an error will be thrown asking
+you to use the `setProps` method on the ReactWrapper/ShallowWrapper returned
+from `mountWrapper`/`shallowWrapper` instead. This is because changing props
+for an already-rendered component will go through a different code path than
+setting the props for a component before mounting it, so it's important not to
+mix the two up in your tests.
+
+However, when using `renderWrapper`, the returned CheerioWrapper has no
+`setProps` method on it, because it has no concept of React or lifecycle
+methods, it just has the HTML. Because of this, the output from `renderWrapper`
+is not "stateful", so calling `setProps` after rendering is allowed, and will
+NOT throw an error. This use-case (calling setProps/clearProps and re-rendering)
+is why `renderWrapper` isn't memoized.
+
 Type definition:
 ```js
 setProps: (Object) => void
@@ -168,6 +183,22 @@ clearProps();
 
 This can be useful when you're in a deeply nested describe callback and want to
 start over with known empty props.
+
+When using `mountWrapper` or `shallowWrapper`, you should only use `clearProps`
+before the first time you call `mountWrapper`/`shallowWrapper`. If you try to
+use it after the component has already rendered, an error will be thrown asking
+you to use the `setProps` method on the ReactWrapper/ShallowWrapper returned
+from `mountWrapper`/`shallowWrapper` instead. This is because changing props
+for an already-rendered component will go through a different code path than
+setting the props for a component before mounting it, so it's important not to
+mix the two up in your tests.
+
+However, when using `renderWrapper`, the returned CheerioWrapper has no
+`setProps` method on it, because it has no concept of React or lifecycle
+methods, it just has the HTML. Because of this, the output from `renderWrapper`
+is not "stateful", so calling `clearProps` after rendering is allowed, and will
+NOT throw an error. This use-case (calling setProps/clearProps and re-rendering)
+is why `renderWrapper` isn't memoized.
 
 Type definition:
 ```js
