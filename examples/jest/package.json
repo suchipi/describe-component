@@ -1,7 +1,6 @@
 {
   "name": "describe-component-example-jest",
   "version": "1.0.0",
-  "main": "index.test.js",
   "license": "MIT",
   "dependencies": {
     "babel": "^6.23.0",
