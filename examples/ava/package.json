@@ -1,0 +1,30 @@
+{
+  "name": "describe-component-example-ava",
+  "version": "1.0.0",
+  "license": "MIT",
+  "dependencies": {
+    "ava": "^0.20.0",
+    "babel-preset-react": "^6.24.1",
+    "browser-env": "^2.0.31",
+    "enzyme": "^2.9.1",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "react-test-renderer": "^15.6.1"
+  },
+  "scripts": {
+    "test": "ava"
+  },
+  "ava": {
+    "require": [
+      "babel-register",
+      "./test/helpers/setup-browser-env.js"
+    ],
+    "babel": "inherit"
+  },
+  "babel": {
+    "presets": [
+      "react",
+      "@ava/stage-4"
+    ]
+  }
+}

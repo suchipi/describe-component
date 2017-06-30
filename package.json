@@ -24,6 +24,6 @@
   "scripts": {
     "build": "rm -rf build/* && babel src --out-dir build",
     "postinstall": "cd examples/jest && yarn install",
-    "test": "yarn run build && cd examples/jest && yarn test && cd ../mocha && yarn test && cd ../jasmine && yarn test"
+    "test": "yarn run build && cd examples/jest && yarn test && cd ../mocha && yarn test && cd ../jasmine && yarn test && cd ../ava && yarn test"
   }
 }
