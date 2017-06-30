@@ -339,13 +339,11 @@ describeComponent(MyComponent, ({
 });
 ```
 
-### Tape
-TODO (will be available via `require("describe-component/tape")` someday)
-
 ### Generic/Other
 ```js
 // If your test runner isn't listed or supported yet, you can configure
-// describe-component manually to work with your test runner.
+// describe-component manually to work with it as long as it has support for
+// beforeEach/afterEach hooks.
 import makeDescribeComponent from "describe-component";
 import MyComponent from "./MyComponent";
 
