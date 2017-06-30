@@ -315,7 +315,29 @@ describeComponent(MyComponent, ({
 ```
 
 ### AVA
-TODO (will be available via `require("describe-component/ava")` someday)
+```js
+import test from "ava";
+import MyComponent from "./MyComponent";
+
+const describeComponent = require("describe-component/ava")(test);
+
+describeComponent(MyComponent, ({
+  // It's common to only use one of mountWrapper, shallowWrapper, or
+  // renderWrapper, and rename the one you use to match the name of
+  // your component. In this example, we'll use mountWrapper
+  mountWrapper: myComponent,
+  // shallowWrapper,
+  // renderWrapper,
+
+  // Helpers that set the props for the component to be rendered with
+  setProps, // Call with an object to merge into the props
+  clearProps, // Call to clear the props
+
+  props, // Returns the props that the component will be/was rendered with.
+}) => {
+  // Write your tests here
+});
+```
 
 ### Tape
 TODO (will be available via `require("describe-component/tape")` someday)
