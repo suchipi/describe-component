@@ -10,28 +10,20 @@ const ColorableDiv = ({ color, children }) => (
 
 describeComponent(ColorableDiv, ({ mountWrapper: colorableDiv, setProps }) => {
   test("ColorableDiv renders a div", t => {
-    t.plan(1);
-
     t.is(colorableDiv().find("div").length, 1);
   });
 
   test("ColorableDiv sets the data-component-name attribute on that div to 'ColorableDiv'", t => {
-    t.plan(1);
-
     const divProps = colorableDiv().find("div").props();
     t.is(divProps["data-component-name"], "ColorableDiv");
   });
 
   test("ColorableDiv with children passes its children to the div", t => {
-    t.plan(1);
-
     setProps({ children: <span id="some-child" /> });
     t.is(colorableDiv().find("#some-child").length, 1);
   });
 
   test("ColorableDiv with a color sets the inline style of the div", t => {
-    t.plan(2);
-
     setProps({ color: "red" });
     const style = colorableDiv().find("div").props().style;
 
@@ -40,8 +32,6 @@ describeComponent(ColorableDiv, ({ mountWrapper: colorableDiv, setProps }) => {
   });
 
   test("ColorableDiv with no color sets no inline styles", t => {
-    t.plan(1);
-
     const style = colorableDiv().find("div").props().style;
     t.is(style, undefined);
   });
