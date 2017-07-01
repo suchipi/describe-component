@@ -535,6 +535,8 @@ describeComponent(MyComponent, ({
 });
 ```
 
+See also the [Jest example](https://github.com/suchipi/describe-component/tree/master/examples/jest).
+
 ### Mocha
 ```js
 import describeComponent from "describe-component/mocha";
@@ -558,6 +560,8 @@ describeComponent(MyComponent, ({
 });
 ```
 
+See also the [Mocha example](https://github.com/suchipi/describe-component/tree/master/examples/mocha).
+
 ### Jasmine
 ```js
 import describeComponent from "describe-component/jasmine";
@@ -580,6 +584,8 @@ describeComponent(MyComponent, ({
   // Write your tests here
 });
 ```
+
+See also the [Jasmine example](https://github.com/suchipi/describe-component/tree/master/examples/jasmine).
 
 ### AVA
 ```js
@@ -605,6 +611,8 @@ describeComponent(MyComponent, ({
   // Write your tests here
 });
 ```
+
+See also the [AVA example](https://github.com/suchipi/describe-component/tree/master/examples/ava).
 
 ### Generic/Other
 ```js
@@ -640,6 +648,8 @@ const describeComponent = makeDescribeComponent({
 // Call describeComponent normally
 describeComponent(MyComponent, ...);
 ```
+
+See also the [way it was done for AVA](https://github.com/suchipi/describe-component/blob/master/ava.js).
 
 ## License
 
