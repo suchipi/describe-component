@@ -1,7 +1,7 @@
 {
   "name": "describe-component",
   "version": "1.0.0",
-  "description": "Helper for testing React components with enzyme",
+  "description": "Consistent React unit testing with zero boilerplate!",
   "main": "index.js",
   "author": "Stephen Scott <me@suchipi.com>",
   "license": "MIT",
