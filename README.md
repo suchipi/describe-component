@@ -16,20 +16,20 @@ Here's what it looks like. This example is for [Jest](#jest), but
 import React from "react";
 import describeComponent from "describe-component/jest";
 
-const Chameleon = ({ color, children }) => (
-  <div className="chameleon" style={color ? { backgroundColor: color } : undefined}>
+const ColorableDiv = ({ color, children }) => (
+  <div data-component-name="ColorableDiv" style={color ? { color } : undefined}>
     {children}
   </div>
 );
 
-describeComponent(Chameleon, ({ mountWrapper: chameleon, setProps }) => {
+describeComponent(ColorableDiv, ({ mountWrapper: colorableDiv, setProps }) => {
   it("renders a div", () => {
-    expect(chameleon().find("div")).toHaveLength(1);
+    expect(colorableDiv().find("div")).toHaveLength(1);
   });
 
-  it("sets the className on that div to 'chameleon'", () => {
-    expect(chameleon().find("div").props()).toMatchObject({
-      "className": "chameleon",
+  it("sets the data-component-name attribute on that div to 'ColorableDiv'", () => {
+    expect(colorableDiv().find("div").props()).toMatchObject({
+      "data-component-name": "ColorableDiv",
     });
   });
 
@@ -39,7 +39,7 @@ describeComponent(Chameleon, ({ mountWrapper: chameleon, setProps }) => {
     });
 
     it("passes its children to the div", () => {
-      expect(chameleon().find("div").find("#some-child")).toHaveLength(1);
+      expect(colorableDiv().find("#some-child")).toHaveLength(1);
     });
   });
 
@@ -49,15 +49,15 @@ describeComponent(Chameleon, ({ mountWrapper: chameleon, setProps }) => {
     });
 
     it("sets the inline style of the div", () => {
-      expect(chameleon().find("div").props().style).toMatchObject({
-        backgroundColor: "red",
+      expect(colorableDiv().find("div").props().style).toMatchObject({
+        color: "red",
       });
     });
   });
 
   describe("with no color", () => {
     it("sets no inline styles", () => {
-      const style = chameleon().find("div").props().style;
+      const style = colorableDiv().find("div").props().style;
       expect(style).not.toBeDefined();
     });
   });
