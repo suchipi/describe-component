@@ -119,6 +119,12 @@ describe("FishCake", () => {
     mountedFishCake = undefined;
   });
 
+  afterEach(() => {
+    if (mountedFishCake) {
+      mountedFishCake.unmount();
+    }
+  });
+
   const setProps = (newProps) => {
     Object.assign(props, newProps);
   };
