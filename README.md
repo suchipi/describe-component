@@ -342,7 +342,7 @@ When using [`mountWrapper`](#mountwrapper) or
 first time you call `mountWrapper`/`shallowWrapper`. If you try to use it after
 the component has rendered, an error will be thrown. If you want change the
 props of an already-mounted component, you should use the `setProps` method on
-the ReactWrapper/ShallowWrapper returned from `mountWrapper`/`shallowWrapper`
+the `ReactWrapper`/`ShallowWrapper` returned from `mountWrapper`/`shallowWrapper`
 instead:
 
 ```js
@@ -358,7 +358,7 @@ mountWrapper().setProps({ okay: "but", really: "though" }); // All good! 👍
 The reason `describe-component` doesn't treat these two forms interchangeably is
 that changing the props of an already-rendered component will go through a
 different code path (`componentWillReceiveProps`) than setting the props for a
-component before mounting it will (`componentWillMount`), so it's important not
+component before mounting it (`componentWillMount`), so it's important not
 to mix up the two.
 
 ```js
@@ -478,7 +478,7 @@ variable:
 
 ```js
 const GoodLuckClickingThis = ({ onClick }) => (
-  <div onClick={thread} />
+  <div onClick={onClick} />
 );
 
 describeComponent(GoodLuckClickingThis, ({ mountWrapper: goodLuck, setProps }) => {
