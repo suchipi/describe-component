@@ -2,9 +2,20 @@
   "name": "describe-component",
   "version": "1.0.0",
   "description": "Consistent React unit testing with zero boilerplate!",
+  "repository": "suchipi/describe-component",
   "main": "index.js",
   "author": "Stephen Scott <me@suchipi.com>",
   "license": "MIT",
+  "keywords": [
+    "react",
+    "enzyme",
+    "test",
+    "unit",
+    "testing",
+    "boilerplate",
+    "describe",
+    "component"
+  ],
   "devDependencies": {
     "babel-cli": "^6.24.1",
     "babel-plugin-transform-flow-comments": "^6.22.0",
