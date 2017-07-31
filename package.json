@@ -16,11 +16,13 @@
     "describe",
     "component"
   ],
+  "dependencies": {
+    "core-js": "^2.4.1"
+  },
   "devDependencies": {
     "babel-cli": "^6.24.1",
     "babel-plugin-transform-flow-comments": "^6.22.0",
     "babel-preset-es2015": "^6.24.1",
-    "core-js": "^2.4.1",
     "enzyme": "^2.9.1",
     "flow-bin": "^0.48.0",
     "flow-typed": "^2.1.2",
