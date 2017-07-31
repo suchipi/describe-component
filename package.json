@@ -36,7 +36,7 @@
   },
   "scripts": {
     "build": "rm -rf build/* && babel src --out-dir build",
-    "postinstall": "cd examples/jest && yarn install && cd ../mocha && yarn install && cd ../jasmine && yarn install && cd ../ava && yarn install",
+    "install-example-deps": "cd examples/jest && yarn install && cd ../mocha && yarn install && cd ../jasmine && yarn install && cd ../ava && yarn install",
     "test": "yarn run build && cd examples/jest && yarn test && cd ../mocha && yarn test && cd ../jasmine && yarn test && cd ../ava && yarn test"
   }
 }
