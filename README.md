@@ -148,7 +148,7 @@ following helper methods on it: [`mountWrapper`](#mountwrapper),
 [`setProps`](#setprops), [`clearProps`](#clearprops), and [`props`](#props).
 
 ### mountWrapper
-#### `mountWrapper() => ReactWrapper`
+#### `mountWrapper([enzymeOptions]) => ReactWrapper`
 
 A wrapper around Enzyme's [`mount`](https://github.com/airbnb/enzyme/blob/master/docs/api/mount.md)
 that will mount your component (using the props set by `setProps` and
@@ -164,6 +164,22 @@ const card = mount(<PlayingCard kind="7" suit="CLUBS" />);
 describeComponent(PlayingCard, ({ mountWrapper, setProps }) => {
   setProps({ kind: "7", suit: "CLUBS" });
   const card = mountWrapper();
+});
+```
+
+If present, the options passed into mountWrapper will be passed into Enzyme's
+`mount` as the second argument. 
+```js
+// This...
+const card = mount(
+  <PlayingCard kind="7" suit="CLUBS" />,
+  { context: { kind: "bicycleBlue" } }
+);
+
+// ... is roughly the same as this:
+describeComponent(PlayingCard, ({ mountWrapper, setProps }) => {
+  setProps({ kind: "7", suit: "CLUBS" });
+  const card = mountWrapper({ context: { kind: "bicycleBlue" } });
 });
 ```
 
@@ -198,7 +214,7 @@ The `ReactWrapper` created by `mountWrapper` will be unmounted automatically
 after each test.
 
 ### shallowWrapper
-#### `shallowWrapper() => ShallowWrapper`
+#### `shallowWrapper([enzymeOptions]) => ShallowWrapper`
 
 A wrapper around Enzyme's [`shallow`](https://github.com/airbnb/enzyme/blob/master/docs/api/shallow.md)
 that will shallow-render your component (using the props set by `setProps`
@@ -216,6 +232,22 @@ const flavor = shallow(
 describeComponent(CupcakeFlavor, ({ shallowWrapper, setProps }) => {
   setProps({ sweetness: 6 saltiness: 2 name: "Salted Caramel" });
   const flavor = shallowWrapper();
+});
+```
+
+If present, the options passed into shallowWrapper will be passed into Enzyme's
+`shallow` as the second argument.
+```js
+// This...
+const flavor = shallow(
+  <CupcakeFlavor sweetness={6} saltiness={2} name="Salted Caramel" />,
+  { context: { linerColor: "pink" } }
+);
+
+// ... is roughly the same as this:
+describeComponent(CupcakeFlavor, ({ shallowWrapper, setProps }) => {
+  setProps({ sweetness: 6 saltiness: 2 name: "Salted Caramel" });
+  const flavor = shallowWrapper({ context: { linerColor: "pink" } });
 });
 ```
 
@@ -250,7 +282,7 @@ The `ShallowWrapper` created by `shallowWrapper` will be unmounted automatically
 after each test.
 
 ### renderWrapper
-#### `renderWrapper() => CheerioWrapper`
+#### `renderWrapper([enzymeOptions]) => CheerioWrapper`
 
 A wrapper around Enzyme's [`render`](https://github.com/airbnb/enzyme/blob/master/docs/api/render.md)
 that will render your component to static markup (using the props set by
@@ -268,6 +300,22 @@ const shades = render(
 describeComponent(AwesomeSunglasses, ({ renderWrapper, setProps }) => {
   setProps({ framesColor: "black", lensesColor: "indigo" });
   const shades = renderWrapper();
+});
+```
+
+If present, the options passed into renderWrapper will be passed into Enzyme's
+`render` as the second argument.
+```js
+// This...
+const shades = render(
+  <AwesomeSunglasses framesColor="black" lensesColor="indigo" />,
+  { context: { insuranceProvider: "Acme Insurance" } }
+);
+
+// ... is roughly the same as this:
+describeComponent(AwesomeSunglasses, ({ renderWrapper, setProps }) => {
+  setProps({ framesColor: "black", lensesColor: "indigo" });
+  const shades = renderWrapper({ context: { insuranceProvider: "Acme Insurance" } });
 });
 ```
 

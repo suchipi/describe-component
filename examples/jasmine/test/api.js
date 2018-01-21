@@ -1,11 +1,16 @@
 const React = require("react");
+const PropTypes = require("prop-types");
 const describeComponent = require("../../../jasmine"); // require("describe-component/jasmine")
 
-const ColorableDiv = ({ color, children }) => (
+const ColorableDiv = ({ color, children }, { text }) => (
   <div data-component-name="ColorableDiv" style={color ? { color } : undefined}>
     {children}
+    {text}
   </div>
 );
+ColorableDiv.contextTypes = {
+  text: PropTypes.node,
+};
 
 describeComponent(ColorableDiv, ({
   mountWrapper,
@@ -29,6 +34,13 @@ describeComponent(ColorableDiv, ({
     it("only renders the described component once", () => {
       expect(mountWrapper()).toBe(mountWrapper());
     });
+
+    describe("when passing options", () => {
+      it("passes them to the enzyme mount function", () => {
+        const text = <span id="context-text">Hello!</span>;
+        expect(mountWrapper({ context: { text } }).find("#context-text").length).toBe(1);
+      });
+    });
   });
 
   describe("shallowWrapper (shallow rendering)", () => {
@@ -44,6 +56,13 @@ describeComponent(ColorableDiv, ({
 
     it("only renders the described component once", () => {
       expect(shallowWrapper()).toBe(shallowWrapper());
+    });
+
+    describe("when passing options", () => {
+      it("passes them to the enzyme shallow function", () => {
+        const text = <span id="context-text">Hello!</span>;
+        expect(shallowWrapper({ context: { text } }).find("#context-text").length).toBe(1);
+      });
     });
   });
 
@@ -66,6 +85,13 @@ describeComponent(ColorableDiv, ({
       expect(renderWrapper().html()).toBe("<div data-component-name=\"ColorableDiv\" style=\"color:red;\"></div>");
       clearProps();
       expect(renderWrapper().html()).toBe("<div data-component-name=\"ColorableDiv\"></div>");
+    });
+
+    describe("when passing options", () => {
+      it("passes them to the enzyme render function", () => {
+        const text = <span id="context-text">Hello!</span>;
+        expect(renderWrapper({ context: { text } }).find("#context-text").length).toBe(1);
+      });
     });
   });
 

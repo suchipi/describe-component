@@ -1,12 +1,17 @@
 const React = require("react");
+const PropTypes = require("prop-types");
 const expect = require("chai").expect;
 const describeComponent = require("../../../mocha"); // require("describe-component/mocha")
 
-const ColorableDiv = ({ color, children }) => (
+const ColorableDiv = ({ color, children }, { text }) => (
   <div data-component-name="ColorableDiv" style={color ? { color } : undefined}>
     {children}
+    {text}
   </div>
 );
+ColorableDiv.contextTypes = {
+  text: PropTypes.node,
+};
 
 describeComponent(ColorableDiv, ({
   mountWrapper,
@@ -30,6 +35,13 @@ describeComponent(ColorableDiv, ({
     it("only renders the described component once", () => {
       expect(mountWrapper()).to.equal(mountWrapper());
     });
+
+    describe("when passing options", () => {
+      it("passes them to the enzyme mount function", () => {
+        const text = <span id="context-text">Hello!</span>;
+        expect(mountWrapper({ context: { text } }).find("#context-text")).to.have.length(1);
+      });
+    });
   });
 
   describe("shallowWrapper (shallow rendering)", () => {
@@ -45,6 +57,13 @@ describeComponent(ColorableDiv, ({
 
     it("only renders the described component once", () => {
       expect(shallowWrapper()).to.equal(shallowWrapper());
+    });
+
+    describe("when passing options", () => {
+      it("passes them to the enzyme shallow function", () => {
+        const text = <span id="context-text">Hello!</span>;
+        expect(shallowWrapper({ context: { text } }).find("#context-text")).to.have.length(1);
+      });
     });
   });
 
@@ -67,6 +86,13 @@ describeComponent(ColorableDiv, ({
       expect(renderWrapper().html()).to.equal("<div data-component-name=\"ColorableDiv\" style=\"color:red;\"></div>");
       clearProps();
       expect(renderWrapper().html()).to.equal("<div data-component-name=\"ColorableDiv\"></div>");
+    });
+
+    describe("when passing options", () => {
+      it("passes them to the enzyme render function", () => {
+        const text = <span id="context-text">Hello!</span>;
+        expect(renderWrapper({ context: { text } }).find("#context-text")).to.have.length(1);
+      });
     });
   });
 

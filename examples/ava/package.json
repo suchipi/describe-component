@@ -7,6 +7,7 @@
     "babel-preset-react": "^6.24.1",
     "browser-env": "^2.0.31",
     "enzyme": "^2.9.1",
+    "prop-types": "^15.6.0",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-test-renderer": "^15.6.1"

@@ -1,12 +1,17 @@
 const test = require("ava");
 const React = require("react");
+const PropTypes = require("prop-types");
 const describeComponent = require("../../../ava")(test); // require("describe-component/ava")(test)
 
-const ColorableDiv = ({ color, children }) => (
+const ColorableDiv = ({ color, children }, { text }) => (
   <div data-component-name="ColorableDiv" style={color ? { color } : undefined}>
     {children}
+    {text}
   </div>
 );
+ColorableDiv.contextTypes = {
+  text: PropTypes.node,
+};
 
 describeComponent(ColorableDiv, ({
   mountWrapper,
@@ -30,6 +35,13 @@ describeComponent(ColorableDiv, ({
     t.is(mountWrapper(), mountWrapper());
   });
 
+  test("mountWrapper (full rendering) when passing options passes them to the enzyme mount function", t => {
+    const text = <span id="context-text">Hello!</span>;
+    t.is(
+      mountWrapper({ context: { text } }).find("#context-text").length
+    , 1);
+  });
+
   test("shallowWrapper (shallow rendering) returns an enzyme ShallowWrapper of the described component", t => {
     const { shallow } = require("enzyme");
     const expectedConstructorName = shallow(<ColorableDiv />).constructor.name;
@@ -42,6 +54,13 @@ describeComponent(ColorableDiv, ({
 
   test("shallowWrapper (shallow rendering) only renders the described component once", t => {
     t.is(shallowWrapper(), shallowWrapper());
+  });
+
+  test("shallowWrapper (shallow rendering) when passing options passes them to the enzyme shallow function", t => {
+    const text = <span id="context-text">Hello!</span>;
+    t.is(
+      shallowWrapper({ context: { text } }).find("#context-text").length
+    , 1);
   });
 
   test("renderWrapper (static markup rendering) returns a cheerio instance of the html obtained from rendering the described component", t => {
@@ -62,6 +81,13 @@ describeComponent(ColorableDiv, ({
     t.snapshot(renderWrapper().html());
     clearProps();
     t.snapshot(renderWrapper().html());
+  });
+
+  test("renderWrapper (static markup rendering) when passing options passes them to the enzyme render function", t => {
+    const text = <span id="context-text">Hello!</span>;
+    t.is(
+      renderWrapper({ context: { text } }).find("#context-text").length
+    , 1);
   });
 
   test("setProps when using mountWrapper sets the props that the coponent will be mounted with", t => {

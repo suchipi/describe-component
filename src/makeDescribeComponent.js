@@ -5,6 +5,9 @@ const startsWith = require("core-js/library/fn/string/starts-with");
 
 import type { ReactWrapper, ShallowWrapper } from "enzyme";
 type CheerioWrapper = any; // No type available yet
+type EnzymeMountOptions = { context?: Object, attachTo?: HTMLElement, childContextTypes?: Object, adapter?: any };
+type EnzymeShallowOptions = { context?: Object, disableLifecycleMethods?: boolean, adapter?: any };
+type EnzymeRenderOptions = { context?: Object, adapter?: any };
 
 const startsWithVowel = (str) => {
   const lower = str.toLowerCase();
@@ -29,9 +32,9 @@ module.exports = function makeDescribeComponent({
   return function describeComponent(
     Component: Class<React.Component<any, any, any>> | (Object, ?Object) => React.Element<any> | null,
     callback: ({
-      mountWrapper: () => ReactWrapper,
-      shallowWrapper: () => ShallowWrapper,
-      renderWrapper: () => CheerioWrapper,
+      mountWrapper: (?EnzymeMountOptions) => ReactWrapper,
+      shallowWrapper: (?EnzymeShallowOptions) => ShallowWrapper,
+      renderWrapper: (?EnzymeRenderOptions) => CheerioWrapper,
       setProps: (Object) => void,
       props: () => Object,
       clearProps: () => void,
@@ -61,28 +64,49 @@ module.exports = function makeDescribeComponent({
         }
       });
 
-      function mountWrapper() {
+      function mountWrapper(options) {
         if (!mountedWrapper) {
-          mountedWrapper = mount(
-            React.createElement(Component, props)
-          );
+          if (options != null) {
+            mountedWrapper = mount(
+              React.createElement(Component, props),
+              options
+            );
+          } else {
+            mountedWrapper = mount(
+              React.createElement(Component, props)
+            );
+          }
         }
         return mountedWrapper;
       }
 
-      function shallowWrapper() {
+      function shallowWrapper(options) {
         if (!shallowRenderedWrapper) {
-          shallowRenderedWrapper = shallow(
-            React.createElement(Component, props)
-          );
+          if (options != null) {
+            shallowRenderedWrapper = shallow(
+              React.createElement(Component, props),
+              options
+            );
+          } else {
+            shallowRenderedWrapper = shallow(
+              React.createElement(Component, props)
+            );
+          }
         }
         return shallowRenderedWrapper;
       }
 
-      function renderWrapper() {
-        return render(
-          React.createElement(Component, props)
-        );
+      function renderWrapper(options) {
+        if (options != null) {
+          return render(
+            React.createElement(Component, props),
+            options
+          );
+        } else {
+          return render(
+            React.createElement(Component, props)
+          );
+        }
       }
 
       function getProps() {
